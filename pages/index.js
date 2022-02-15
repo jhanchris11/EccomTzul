@@ -1,5 +1,15 @@
+import { Header } from "../components/Header";
+import Brands from "../components/Brands";
+import PopularCategories from "../components/PopularCategories";
+import PopularProducts from "../components/PopularProducts";
+
 export default function Home() {
   return (
-    <div className="text-blue-500 text-5xl text-center">Hola</div>
+    <div>
+      <Header />
+      <Brands />
+      <PopularCategories />
+      <PopularProducts />
+    </div>
   )
 }

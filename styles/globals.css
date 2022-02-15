@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+    /* @layer base{
+        html{
+            @apply font-fvolkhov;
+            @apply font-fmate;
+        }
+
+        h1{
+            @apply 
+        }
+    } */
