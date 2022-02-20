@@ -5,7 +5,7 @@ import Link from 'next/link';
 const CategorieItem = ({ image, title, altname }) => {
     return (
         <div>
-            <Link href={'/products'} passHref >
+            <Link href={`/products/category/${altname}`} passHref >
                 <a>
                     <Image className="hover:scale-125 transition-transform duration-700" src={image} alt={altname} layout='fill' objectFit='cover' />
                 </a>
