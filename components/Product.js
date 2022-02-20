@@ -3,13 +3,19 @@ import Image from 'next/image'
 import Cart from './Cart'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, saveCart } from '../redux/features/cart/Cart'
+import { useRouter } from 'next/router';
 
 const Product = ({ product }) => {
+  const route = useRouter();
   const dispatch = useDispatch()
 
   const addProductToCart = () => {
     dispatch(addToCart(product))
     dispatch(saveCart())
+  }
+
+  const productDetails = (productID) => {
+    route.push(`/products/product/${productID}`);
   }
 
   return (
@@ -29,7 +35,10 @@ const Product = ({ product }) => {
           </h2>
         </div>
         <div className='m-2 flex justify-center gap-6'>
-          <button className='bg-sky-500 text-white font-medium py-2 px-3 rounded-md cursor-pointer'>
+          <button 
+            className='bg-sky-500 text-white font-medium py-2 px-3 rounded-md cursor-pointer'
+            onClick={() => productDetails(product.id)}
+          >
             Comprar ahora
           </button>
           <div 
