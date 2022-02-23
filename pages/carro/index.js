@@ -1,16 +1,24 @@
 import React from 'react'
+import CartContainer from '../../components/Cart/CartContainer'
+import CartProducts from '../../components/Cart/CartProducts'
+import StripePayment from '../../components/Cart/StripePayment'
+import WithoutLoginCart from '../../components/Cart/WithoutLoginCart'
 import { useSelector } from 'react-redux'
 
 const CartPage = () => {
-  const products = useSelector(state => state.cart.products)
+  const logged = useSelector(state => state.auth.logged)
 
   return (
-      <>
-        <h1 className='text-3xl'>Productos: </h1>
-        <div>
-          {products.map(product => <h1 key={product.id}>{product.name}</h1>)}  
-        </div>          
-      </>
+      <div className='w-auto h-auto flex flex-col items-center'>
+        {logged 
+        ? <CartContainer>
+            <CartProducts />   
+            <StripePayment />
+          </CartContainer>
+        : <CartContainer>
+            <WithoutLoginCart />
+          </CartContainer>}
+      </div>
   )
 }
 

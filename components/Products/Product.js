@@ -1,15 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
-import Cart from './Cart'
-import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, saveCart } from '../redux/features/cart/Cart'
+import IconCart from '../Cart/IconCart'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { addToCart, errorCart, saveCart } from '../../redux/features/cart/Cart'
 
 const Product = ({ product }) => {
   const dispatch = useDispatch()
+  const logged = useSelector(state => state.auth.logged) 
 
   const addProductToCart = () => {
-    dispatch(addToCart(product))
-    dispatch(saveCart())
+    if (logged) {
+      dispatch(addToCart(product))
+      dispatch(saveCart())
+      dispatch(errorCart(''))
+    } else {
+      dispatch(errorCart('Para agregar productos al carrito, por favor inicie sesion'))
+    }
   }
 
   return (
@@ -29,12 +36,12 @@ const Product = ({ product }) => {
           </h2>
         </div>
         <div className='m-2 flex justify-center gap-6'>
-          <button className='bg-sky-500 text-white font-medium py-2 px-3 rounded-md cursor-pointer'>
+          <button className='bg-sky-400 text-white font-medium py-2 px-3 rounded-md cursor-pointer'>
             Comprar ahora
           </button>
           <div 
-          onClick={addProductToCart} className='text-sky-500 flex items-center px-3 border-sky-500 border-2 rounded-lg cursor-pointer'>
-            <Cart />
+          onClick={addProductToCart} className='text-sky-400 flex items-center px-3 border-sky-500 border-2 rounded-lg cursor-pointer'>
+            <IconCart />
           </div>
         </div>
       </div>

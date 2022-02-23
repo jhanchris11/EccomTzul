@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 export const saveCart = createAsyncThunk('cart/saveCart', async (cart,{getState}) => {
-    const {cart:{products}} = getState()
+    const {cart: {products}} = getState()
+    const {cart: {price}} = getState()
+    const {auth: {id}} = getState()
     
-    const result = await fetch('http://localhost:3000/api/cart', {
+    const result = await fetch('/api/cart', {
         method: 'POST',
-        body: JSON.stringify({username: 'Gonzalo', data: {products}}),
+        body: JSON.stringify({username: id, data: {products}, price: {price}}),
         headers: {
-            'Content-Type': 'applictaion/json'
+            'Content-Type': 'application/json'
         }
     })
 
@@ -16,12 +18,14 @@ export const saveCart = createAsyncThunk('cart/saveCart', async (cart,{getState}
     return data
 })
 
-export const getCart = createAsyncThunk('cart/getCart', async () => {
-    const response = await fetch('http://localhost:3000/api/cart/get', {
+export const getCart = createAsyncThunk('cart/getCart', async (payload,{getState}) => {
+    const {auth: {id}} = getState()
+    
+    const response = await fetch('/api/cart/get', {
         method: 'POST',
-        body: JSON.stringify({ username: 'Gonzalo' }),
+        body: JSON.stringify({ username: id }),
         headers: {
-            'Content-Type': 'applictaion/json'
+            'Content-Type': 'application/json'
         }
     })
 
@@ -34,17 +38,35 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         products: [],
+        price: 0,
         loading: false,
-        error: false,       
+        error: false,
+        errorMessage: '',       
     },
     reducers: {
        addToCart: (state, action) => {
-        state.products.push(action.payload)
+        const index = state.products.findIndex(product => product.id === action.payload.id)
+        state.price += action.payload.price
+        
+        if (index !== -1) {
+            state.products[index].quantity += 1
+            state.products[index].price += action.payload.price
+        }
+        else {
+            state.products.push({ ...action.payload , quantity: 1 , price: action.payload.price })
+        }
        },
        removeFromCart: (state, action) => {
         state.products = state.products.filter(product => product.id !== action.payload.id)
-        console.log(state.products)
+        state.price -= action.payload.price 
        },
+       emptyCart: (state, action) => {
+           state.products = []
+       },
+       errorCart: (state, action) => {
+           state.error = true
+           state.errorMessage = action.payload
+       }
     },
     extraReducers(builder) {
         builder.addCase(saveCart.pending, (state, action) => {
@@ -64,7 +86,8 @@ const cartSlice = createSlice({
         builder.addCase(getCart.fulfilled, (state, action) => {
             state.loading = false
             state.error = false
-            state.products = action.payload.products
+            state.products = action.payload.cartProducts.products
+            state.price = action.payload.currentPayment.price
         }),
         builder.addCase(getCart.rejected, (state, action) => {
             state.loading = false
@@ -76,4 +99,4 @@ const cartSlice = createSlice({
 const cartReducer = cartSlice.reducer
 
 export default cartReducer
-export const { addToCart, removeFromCart } = cartSlice.actions
+export const { addToCart, removeFromCart, emptyCart, errorCart } = cartSlice.actions

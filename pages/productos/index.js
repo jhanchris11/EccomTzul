@@ -1,6 +1,8 @@
 import React from 'react'
-import Products from '../../components/Products'
-import Product from '../../components/Product'
+import Products from '../../components/Products/Products'
+import Product from '../../components/Products/Product'
+import { useSelector } from 'react-redux'
+import ProductAuthValidation from '../../components/Products/ProductAuthValidation'
 
 
 export const getServerSideProps = async ({ req }) => {
@@ -15,11 +17,14 @@ export const getServerSideProps = async ({ req }) => {
   }
   
 const ProductsPage = ({ products }) => {
+  const errorMessage = useSelector(state => state.cart.errorMessage)
+  
   return (
     <>
         <Products>
           {products.map(product => <Product key={product.id} product={product}></Product>)}
         </Products>
+        {errorMessage && <ProductAuthValidation>{errorMessage}</ProductAuthValidation>}
     </>
   )
 }

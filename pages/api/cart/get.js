@@ -1,9 +1,12 @@
-import db from '../../../config/database'
+import { db } from '../../../config/database'
 import { doc, getDoc } from 'firebase/firestore'
 
 export default async function getCart({body}, res) {
-    const cartDoc = doc(db, 'cart', body.username)
-    await getDoc(cartDoc)
+    const cartProducts = await getDoc(doc(db, 'carro', body.username))
+    const currentPayment = await getDoc(doc(db, 'ordenActual', body.username))
 
-    return res.json(snapshot.data())
+    return res.json({
+        cartProducts: cartProducts.data(),
+        currentPayment: currentPayment.data(),
+    })
 }
