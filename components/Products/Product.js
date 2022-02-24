@@ -4,8 +4,10 @@ import IconCart from '../Cart/IconCart'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { addToCart, errorCart, saveCart } from '../../redux/features/cart/Cart'
+import { useRouter } from 'next/router'
 
 const Product = ({ product }) => {
+  const router = useRouter()
   const dispatch = useDispatch()
   const logged = useSelector(state => state.auth.logged) 
 
@@ -17,6 +19,10 @@ const Product = ({ product }) => {
     } else {
       dispatch(errorCart('Para agregar productos al carrito, por favor inicie sesion'))
     }
+  }
+
+  const productDetails = (productID) => {
+    router.push(`/products/product/${productID}`);
   }
 
   return (
@@ -36,7 +42,10 @@ const Product = ({ product }) => {
           </h2>
         </div>
         <div className='m-2 flex justify-center gap-6'>
-          <button className='bg-sky-400 text-white font-medium py-2 px-3 rounded-md cursor-pointer'>
+          <button 
+          className='bg-sky-400 text-white font-medium py-2 px-3 rounded-md cursor-pointer'
+          onClick={() => productDetails(product.id)}
+          >
             Comprar ahora
           </button>
           <div 

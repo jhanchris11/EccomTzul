@@ -1,3 +1,5 @@
+import Footer from './Footer';
+import { PageHead } from './PageHead';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCart, emptyCart } from '../redux/features/cart/Cart'
@@ -26,8 +28,12 @@ const Page = ({ children }) => {
 
   return (
     <div>
+        <PageHead />
         <Navbar />
-        {children}
+        <main className='overflow-x-hidden'>
+                {children}
+        </main>
+        <Footer />
     </div>
   )
 }
