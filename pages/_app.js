@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import store from '../redux/store'
 import Page from '../components/Page'
 
-function MyApp({ Component, pageProps }) {
+function MyApp ({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <Page>
