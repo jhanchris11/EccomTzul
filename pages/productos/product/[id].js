@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { FaCartPlus, FaPlus, FaMinus } from 'react-icons/fa';
 import { BsFillBookmarkPlusFill, BsFillBookmarkCheckFill } from 'react-icons/bs';
 import Loader from '../../../components/Loader';
-
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { addToCart, errorCart, saveCart } from '../../../redux/features/cart/Cart';
 
 export const getServerSideProps = async ({ req, query }) => {
     const productItem = await fetch(`http://${req.headers.host}/api/products/product?item=${query.id}`);
@@ -19,9 +21,14 @@ export const getServerSideProps = async ({ req, query }) => {
 
 const index = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
+    const [prodsize, setProdSize] = useState('');
     const [isFavorite, setIsFavorite] = useState(false);
     const router = useRouter();
     const { id } = router.query;
+
+    useEffect(()=>{
+        setProdSize(product.sizes[0]);
+    },[]);
 
     const addQuantity = () => {
         setQuantity(quantity + 1);
@@ -31,6 +38,11 @@ const index = ({ product }) => {
         quantity > 1
             ? setQuantity(quantity - 1)
             : setQuantity(1)
+    }
+
+    const saveProduct = () => {
+        console.log(quantity);
+        console.log(prodsize);
     }
 
     return (
@@ -73,11 +85,11 @@ const index = ({ product }) => {
                                         </div>
                                         <div className='flex flex-col gap-2 items-center'>
                                             <h3 className='font-fmate'>Talla</h3>
-                                            <select className='w-16 h-7 font-fvolkhov cursor-pointer'>
+                                            <select className='w-16 h-7 font-fvolkhov cursor-pointer' defaultValue={product.sizes[0]} onChange={(e) => setProdSize(e.target.value)}>
                                                 {
                                                     product.sizes.map((psize)=>{
                                                         return(
-                                                            <option>{psize}</option>
+                                                            <option key={psize}>{psize}</option>
                                                         )
                                                     })
                                                 }
@@ -85,7 +97,10 @@ const index = ({ product }) => {
                                         </div>
                                     </div>
                                     <div className='mt-9'>
-                                        <button className='w-32 h-11 bg-green-400 hover:bg-green-500 flex justify-center items-center gap-2 rounded-lg font-fvolkhov text-lg'>
+                                        <button 
+                                            className='w-32 h-11 bg-green-400 hover:bg-green-500 flex justify-center items-center gap-2 rounded-lg font-fvolkhov text-lg'
+                                            onClick={saveProduct}
+                                        >
                                             <FaCartPlus size={25} />
                                             agregar
                                         </button>

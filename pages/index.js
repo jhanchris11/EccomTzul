@@ -10,15 +10,18 @@ import { useRouter } from "next/router";
 export const getServerSideProps = async ({ req }) => {
   const categorias = await fetch(`http://${req.headers.host}/api/categories/popularscat?popular=true`);
   const categories = await categorias.json();
+  const popularproducts = await fetch(`http://${req.headers.host}/api/products/popularproducts?popular=true`);
+  const products = await popularproducts.json();
 
   return {
     props: {
-      categories
+      categories,
+      products
     }
   }
 }
 
-export default function Home({categories}) {
+export default function Home({categories, products}) {
   const dispatch = useDispatch()
   const router = useRouter()
   const logged = useSelector(state => state.auth.logged)
@@ -44,7 +47,7 @@ export default function Home({categories}) {
       <Header />
       <Brands />
       <PopularCategories popularCategories={categories} />
-      <PopularProducts />
+      <PopularProducts popularProducts={products} />
     </div>
   )
 }
