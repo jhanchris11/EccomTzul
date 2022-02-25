@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridAutoColumns: {
+        '2fr': 'minmax("288px", 2fr)',
+      },
       fontFamily:{
         fvolkhov : ['Volkhov', 'sanserif'],
         fmate: ['Mate', 'sanserif']

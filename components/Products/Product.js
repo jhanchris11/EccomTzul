@@ -34,7 +34,7 @@ const Product = ({ product }) => {
           height={600}
         />
         <div className='w-4/5 flex flex-col items-start mt-1'>
-          <h1 className='font-fvolkhov text-2xl font-bold'>
+          <h1 className='h-16 flex items-center font-fvolkhov text-2xl font-bold'>
             {product.name}
           </h1>
           <h2 className='font-fvolkhov'>

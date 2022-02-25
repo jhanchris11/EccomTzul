@@ -46,11 +46,11 @@ const index = ({ product }) => {
     }
 
     return (
-        <section className='mt-24 w-full h-full flex justify-center'>
+        <section className='mt-24 w-full h-screen flex justify-center'>
             {
                 product
                     ? (
-                        <div className='w-[90%] h-auto bg-slate-200 flex flex-col relative p-4 rounded-lg'>
+                        <div className='w-[90%] h-max bg-slate-200 flex flex-col relative p-4 rounded-lg'>
                             <div className='flex flex-col md:flex-row gap-3'>
                                 <div className='relative w-full h-[300px] rounded-lg md:w-[50%]'>
                                     <Image src={product.img} alt={product.name} layout='fill' />
