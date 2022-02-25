@@ -10,10 +10,8 @@ import ProductAuthValidation from '../../components/Products/ProductAuthValidati
 export const getServerSideProps = async ({ req }) => {
     const data = await fetch(`http://${req.headers.host}/api/products`)
     const products = await data.json()
-    console.log(products)
     const categoriesData = await fetch(`http://${req.headers.host}/api/categories`);
     const categories = await categoriesData.json()
-    console.log(categories)
   
     return {
       props: {

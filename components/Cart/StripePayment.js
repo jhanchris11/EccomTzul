@@ -9,18 +9,6 @@ const stripePromise = loadStripe(
   
 const StripePayment = () => {
   const products = useSelector(state => state.cart.products)
-  
-  React.useEffect(() => {
-      
-        const query = new URLSearchParams(window.location.search);
-        if (query.get('success')) {
-          console.log('Order placed! You will receive an email confirmation.');
-        }
-    
-        if (query.get('canceled')) {
-          console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
-        }
-    }, [])
 
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -51,11 +39,11 @@ const StripePayment = () => {
         <div>
           {products.length === 0
           ? <div className='flex justify-center'>
-              <Link href={'/productos'}><button className="bg-sky-500 text-white font-semibold rounded-md py-2 px-8 border-solid border-b-black border-b-opacity-10 shadow-md shadow-[0_3px_6px_rgb(0,0,0,0.2)] hover:bg-sky-400 duration-100">Seguir comprando</button></Link>  
+              <Link href={'/productos'}><button className="font-fvolkhov bg-amber-400 text-white font-semibold rounded-md py-2 px-8 border-solid border-b-black border-b-opacity-10 shadow-md shadow-[0_3px_6px_rgb(0,0,0,0.2)] hover:bg-amber-400 duration-100">Seguir comprando</button></Link>  
             </div>
           : <div className="w-full flex items-center justify-center">
               <form onSubmit={handleSubmit}>
-                <button className="bg-sky-500 text-white font-semibold rounded-md py-2 px-12 hover:bg-sky-400 duration-150">Comprar</button>
+                <button className="font-fvolkhov bg-emerald-500 text-white font-semibold rounded-md py-2 px-12 hover:bg-emerald-400 duration-150">Comprar</button>
               </form>
             </div>}
         </div>

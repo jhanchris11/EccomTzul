@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { FaShoppingCart } from 'react-icons/fa'
 
 
 import React from 'react'
@@ -8,7 +7,7 @@ const IconCart = () => {
   return (
       <div>
           <button>
-            <FontAwesomeIcon icon={faShoppingCart} />
+            <FaShoppingCart />
           </button>
       </div>
   )

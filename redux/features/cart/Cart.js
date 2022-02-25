@@ -86,8 +86,8 @@ const cartSlice = createSlice({
         builder.addCase(getCart.fulfilled, (state, action) => {
             state.loading = false
             state.error = false
-            state.products = action.payload.cartProducts.products
-            state.price = action.payload.currentPayment.price
+            state.products = action.payload.cartProducts?.products
+            state.price = action.payload.currentPayment?.price
         }),
         builder.addCase(getCart.rejected, (state, action) => {
             state.loading = false

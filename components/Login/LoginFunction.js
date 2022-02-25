@@ -85,14 +85,14 @@ const LoginFunction = () => {
                     }) => {
                         return (
                             <div className="h-2/3 flex flex-col justify-between">
-                                <h1 className="text-center text-2xl font-light">Iniciar Sesión</h1>
+                                <h1 className="font-fvolkhov text-center text-2xl font-light">Iniciar Sesión</h1>
                                 <Form onSubmit={handleSubmit} className='h-full flex flex-col justify-evenly'>
                                     <div>
                                         <input 
                                         name='email'
                                         type='email'
                                         placeholder="Correo electrónico"
-                                        className='bg-transparent w-full outline-none border-sky-500 border-b-2 p-1 focus:border-sky-400 duration-100'
+                                        className='font-fvolkhov bg-transparent w-full outline-none border-amber-400 border-b-2 p-1 focus:border-amber-200 duration-150'
                                         value={loginEmail}
                                         onChange={e => setLoginEmail(e.target.value)}
                                         onBlur={handleBlur}
@@ -104,7 +104,7 @@ const LoginFunction = () => {
                                         name='password' 
                                         type='password'
                                         placeholder="Contraseña"
-                                        className='bg-transparent w-full outline-none border-sky-500 border-b-2 p-1 focus:border-sky-400 duration-100'
+                                        className='font-fvolkhov bg-transparent w-full outline-none border-amber-400 border-b-2 p-1 focus:border-amber-200 duration-150'
                                         value={loginPassword}
                                         onChange={e => setLoginPassword(e.target.value)}
                                         onBlur={handleBlur}
@@ -112,7 +112,7 @@ const LoginFunction = () => {
                                     </div>
                                     <div className="w-full h-min flex justify-center">
                                         <button
-                                        className="w-max font-semibold bg-sky-400 rounded-md text-white py-2 px-8 mt-2"
+                                        className="font-fvolkhov w-max font-semibold bg-amber-400 rounded-md text-white py-2 px-8 mt-2"
                                         onClick={signin}
                                         type='submit'
                                         >
@@ -130,7 +130,7 @@ const LoginFunction = () => {
                         <LoginProviders />
                     </div>
                     <div>
-                        <div className="text-center"><span className="text-gray-500">¿No tienes cuenta?</span> <Link href='/auth/registro'><span className="cursor-pointer text-sky-500">Regístrate</span></Link></div>
+                        <div className="text-center"><span className="font-fvolkhov text-gray-500">¿No tienes cuenta?</span> <Link href='/auth/registro'><span className="font-fvolkhov cursor-pointer text-amber-400">Regístrate</span></Link></div>
                     </div>
                 </div>
             </div>

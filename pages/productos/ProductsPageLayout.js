@@ -13,7 +13,7 @@ const ProductsPageLayout = ({ categoriesList, children }) => {
 
   const searchProducts = () => {
     // console.log(searchRef.current.value);
-    router.push(`/products/${searchRef.current.value}`);
+    router.push(`/productos/${searchRef.current.value}`);
     searchRef.current.value = '';
     // const productsList = await fetch(`http://localhost:3000/api/products/productssearch?search=${searchRef.current.value}`);
     // const products = await productsList.json();
@@ -47,7 +47,7 @@ const ProductsPageLayout = ({ categoriesList, children }) => {
               categoriesList.map((category) => {
                 return (
                   <li key={category.id} >
-                    <Link href={`/products/category/${category.tag}`} passHref>
+                    <Link href={`/productos/category/${category.tag}`} passHref>
                       <a>
                         <div className='w-full h-10 bg-orange-400 md:bg-slate-50 md:hover:bg-slate-100 flex items-center pl-2'>
                           {category.tag}
