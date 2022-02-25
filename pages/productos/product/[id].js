@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { FaCartPlus, FaPlus, FaMinus } from 'react-icons/fa';
 import { BsFillBookmarkPlusFill, BsFillBookmarkCheckFill } from 'react-icons/bs';
 import Loader from '../../../components/Loader';
+import { addToCart, saveCart, errorCart } from '../../../redux/features/cart/Cart';
+import { useDispatch, useSelector } from 'react-redux';
+import ProductAuthValidation from '../../../components/Products/ProductAuthValidation';
 
 
 export const getServerSideProps = async ({ req, query }) => {
@@ -20,8 +22,9 @@ export const getServerSideProps = async ({ req, query }) => {
 const index = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
     const [isFavorite, setIsFavorite] = useState(false);
-    const router = useRouter();
-    const { id } = router.query;
+    const dispatch = useDispatch()
+    const errorMessage = useSelector(state => state.cart.errorMessage)
+    const logged = useSelector(state => state.auth.logged)
 
     const addQuantity = () => {
         setQuantity(quantity + 1);
@@ -31,6 +34,15 @@ const index = ({ product }) => {
         quantity > 1
             ? setQuantity(quantity - 1)
             : setQuantity(1)
+    }
+
+    const addProductToCart = () => {
+        if (logged) {
+            dispatch(addToCart(product))
+            dispatch(saveCart())
+        } else {
+            dispatch(errorCart('Para agregar productos al carrito, por favor inicie sesion'))
+        }
     }
 
     return (
@@ -85,7 +97,9 @@ const index = ({ product }) => {
                                         </div>
                                     </div>
                                     <div className='mt-9'>
-                                        <button className='w-32 h-11 bg-green-400 hover:bg-green-500 flex justify-center items-center gap-2 rounded-lg font-fvolkhov text-lg'>
+                                        <button className='w-32 h-11 bg-green-400 hover:bg-green-500 flex justify-center items-center gap-2 rounded-lg font-fvolkhov text-lg'
+                                                onClick={addProductToCart}
+                                        >
                                             <FaCartPlus size={25} />
                                             agregar
                                         </button>
@@ -109,7 +123,7 @@ const index = ({ product }) => {
                     ) 
                     : <Loader />
             }
-
+            {errorMessage && <ProductAuthValidation>{errorMessage}</ProductAuthValidation>}
         </section>
     )
 }

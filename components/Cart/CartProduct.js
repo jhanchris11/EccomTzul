@@ -19,7 +19,7 @@ const CartProduct = ({ product }) => {
             </div>
             <div className='w-5/12 flex justify-around text-xl'>
                 <div>
-                    <h1 className="font-fvolkhov font-light">Cantidad <span className='font-semibold'>{product.quantity}</span></h1>
+                    <h1 className="font-fvolkhov font-light">Cantidad: <span className='font-semibold'>{product.quantity}</span></h1>
                 </div>
                 <div>
                     <h1 className='font-fvolkhov text-emerald-500'>${product.price.toFixed(2)}</h1>
