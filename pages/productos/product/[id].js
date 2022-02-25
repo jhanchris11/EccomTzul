@@ -4,9 +4,10 @@ import Image from 'next/image';
 import { FaCartPlus, FaPlus, FaMinus } from 'react-icons/fa';
 import { BsFillBookmarkPlusFill, BsFillBookmarkCheckFill } from 'react-icons/bs';
 import Loader from '../../../components/Loader';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { addToCart, errorCart, saveCart } from '../../../redux/features/cart/Cart';
+import { addToCart, saveCart, errorCart } from '../../../redux/features/cart/Cart';
+import { useDispatch, useSelector } from 'react-redux';
+import ProductAuthValidation from '../../../components/Products/ProductAuthValidation';
+
 
 export const getServerSideProps = async ({ req, query }) => {
     const productItem = await fetch(`http://${req.headers.host}/api/products/product?item=${query.id}`);
@@ -23,8 +24,9 @@ const index = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
     const [prodsize, setProdSize] = useState('');
     const [isFavorite, setIsFavorite] = useState(false);
-    const router = useRouter();
-    const { id } = router.query;
+    const dispatch = useDispatch()
+    const errorMessage = useSelector(state => state.cart.errorMessage)
+    const logged = useSelector(state => state.auth.logged)
 
     useEffect(()=>{
         setProdSize(product.sizes[0]);
@@ -40,17 +42,21 @@ const index = ({ product }) => {
             : setQuantity(1)
     }
 
-    const saveProduct = () => {
-        console.log(quantity);
-        console.log(prodsize);
+    const addProductToCart = () => {
+        if (logged) {
+            dispatch(addToCart(product))
+            dispatch(saveCart())
+        } else {
+            dispatch(errorCart('Para agregar productos al carrito, por favor inicie sesion'))
+        }
     }
 
     return (
-        <section className='mt-24 w-full h-full flex justify-center'>
+        <section className='mt-24 w-full h-screen flex justify-center'>
             {
                 product
                     ? (
-                        <div className='w-[90%] h-auto bg-slate-200 flex flex-col relative p-4 rounded-lg'>
+                        <div className='w-[90%] h-max bg-slate-200 flex flex-col relative p-4 rounded-lg'>
                             <div className='flex flex-col md:flex-row gap-3'>
                                 <div className='relative w-full h-[300px] rounded-lg md:w-[50%]'>
                                     <Image src={product.img} alt={product.name} layout='fill' />
@@ -97,9 +103,8 @@ const index = ({ product }) => {
                                         </div>
                                     </div>
                                     <div className='mt-9'>
-                                        <button 
-                                            className='w-32 h-11 bg-green-400 hover:bg-green-500 flex justify-center items-center gap-2 rounded-lg font-fvolkhov text-lg'
-                                            onClick={saveProduct}
+                                        <button className='w-32 h-11 bg-green-400 hover:bg-green-500 flex justify-center items-center gap-2 rounded-lg font-fvolkhov text-lg'
+                                                onClick={addProductToCart}
                                         >
                                             <FaCartPlus size={25} />
                                             agregar
@@ -124,7 +129,7 @@ const index = ({ product }) => {
                     ) 
                     : <Loader />
             }
-
+            {errorMessage && <ProductAuthValidation>{errorMessage}</ProductAuthValidation>}
         </section>
     )
 }

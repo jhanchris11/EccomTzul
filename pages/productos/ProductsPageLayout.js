@@ -22,7 +22,7 @@ const ProductsPageLayout = ({ categoriesList, children }) => {
   }
 
   return (
-    <section className='mt-24'>
+    <section className='mt-24 h-auto'>
       <div className='w-full h-14 flex justify-between md:justify-end items-center px-5'>
         <div className='w-auto h-auto flex items-center gap-3'>
           <input ref={searchRef} className='h-8 outline-none rounded-md p-2 text-center bg-slate-300 md:w-80' type='text' />
@@ -39,7 +39,7 @@ const ProductsPageLayout = ({ categoriesList, children }) => {
           <BsArrowBarLeft size={25} />
         </button>
       </div>
-      <div className='w-full h-screen flex relative mt-9'>
+      <div className='w-full h-auto flex relative mt-9'>
         <div className={`box-border bg-orange-500 z-50 md:bg-white md:border-r-2 md:border-amber-500 ${isCatgMenuOpen ? 'w-52' : 'w-0'}  md:w-52 overflow-hidden h-full absolute md:relative right-0 transition-all duration-500`}>
           <h1 className='ml-4 mt-4 underline decoration-slate-100 md:decoration-amber-500 decoration-wavy underline-offset-8'>Categorias</h1>
           <ul className='ml-4 mt-4 flex flex-col gap-1'>
@@ -60,7 +60,7 @@ const ProductsPageLayout = ({ categoriesList, children }) => {
             }
           </ul>
         </div>
-        <div className='w-full h-full '>
+        <div className='w-full h-auto'>
           {children}
         </div>
       </div>
