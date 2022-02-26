@@ -43,7 +43,19 @@ const index = ({ product }) => {
     }
 
     const addProductToCart = () => {
+        console.log(quantity);
+        console.log(prodsize);
+        // const dataProduct = {
+        //     id: product.id,
+        //     name: product.name,
+        //     img: product.img,
+        //     description: product.description
+
+        // }
         if (logged) {
+            product.quantity = quantity;
+            product.sizes =  product.sizes.filter((prod) => prod.sizes === prodsize);
+            console.log(product.sizes);
             dispatch(addToCart(product))
             dispatch(saveCart())
         } else {
@@ -57,9 +69,9 @@ const index = ({ product }) => {
                 product
                     ? (
                         <div className='w-[90%] h-max bg-slate-200 flex flex-col relative p-4 rounded-lg'>
-                            <div className='flex flex-col md:flex-row gap-3'>
+                            <div className='flex flex-col md:flex-row gap-3 mb-2'>
                                 <div className='relative w-full h-[300px] rounded-lg md:w-[50%]'>
-                                    <Image src={product.img} alt={product.name} layout='fill' />
+                                    <Image src={product.img} alt={product.name} layout='fill' objectFit='cover' />
                                 </div>
                                 <div className='w-full h-[300px] flex flex-col p-6'>
                                     <div>
@@ -112,7 +124,7 @@ const index = ({ product }) => {
                                     </div>
                                 </div>
                             </div>
-                            <fieldset className='border-4 border-slate-300 w-full p-6 mt-6'>
+                            <fieldset className='border-4 border-slate-300 w-full p-6 mt-8'>
                                 <legend className='font-fvolkhov '>Descripcion</legend>
                                 <p className='font-fmate'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias fugit consectetur, similique corrupti dolore beatae maxime, sapiente dolorum quo illum laboriosam. Vitae quod culpa reprehenderit ex quasi totam beatae ipsa.</p>
                             </fieldset>

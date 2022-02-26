@@ -46,14 +46,15 @@ const cartSlice = createSlice({
     reducers: {
        addToCart: (state, action) => {
         const index = state.products.findIndex(product => product.id === action.payload.id)
-        state.price += action.payload.price
-        
+        state.price += (action.payload.price * action.payload.quantity)
+        console.log(action.payload.sizes)
         if (index !== -1) {
-            state.products[index].quantity += 1
-            state.products[index].price += action.payload.price
+            state.products[index].quantity += action.payload.quantity
+            state.products[index].price += (action.payload.price * action.payload.quantity)
+            state.products[index].sizes = action.payload.sizes
         }
         else {
-            state.products.push({ ...action.payload , quantity: 1 , price: action.payload.price })
+            state.products.push({ ...action.payload , quantity: action.payload.quantity , price: (action.payload.price * action.payload.quantity), sizes: action.payload.sizes })
         }
        },
        removeFromCart: (state, action) => {
@@ -86,7 +87,7 @@ const cartSlice = createSlice({
         builder.addCase(getCart.fulfilled, (state, action) => {
             state.loading = false
             state.error = false
-            state.products = action.payload.cartProducts.products
+            state.products = action.payload.cartProducts ? action.payload.cartProducts.products : []
             state.price = action.payload.currentPayment.price
         }),
         builder.addCase(getCart.rejected, (state, action) => {
