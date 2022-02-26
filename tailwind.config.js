@@ -1,18 +1,15 @@
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
-  ],
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      fontFamily:{
-        fvolkhov : ['Volkhov', 'sanserif'],
+      fontFamily: {
+        fvolkhov: ['Volkhov', 'sanserif'],
         fmate: ['Mate', 'sanserif']
       },
       transitionProperty: {
-        'height': 'height'
-      },
-    },
+        height: 'height'
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 }

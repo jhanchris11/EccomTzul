@@ -3,22 +3,19 @@ import { GoogleAuthProvider } from 'firebase/auth'
 import { auth } from '../../config/database'
 
 const config = {
+  signInFlow: 'popup',
 
-    signInFlow: 'popup',
+  signInSuccessUrl: '/',
 
-    signInSuccessUrl: '/',
-
-    signInOptions: [
-      GoogleAuthProvider.PROVIDER_ID,
-    ],
+  signInOptions: [GoogleAuthProvider.PROVIDER_ID]
 }
 
 const LoginProviders = () => {
-    return (
-        <div>
-            <StyledFirebaseAuth uiConfig={config} firebaseAuth={auth} />
-        </div>
-    )
+  return (
+    <div>
+      <StyledFirebaseAuth uiConfig={config} firebaseAuth={auth} />
+    </div>
+  )
 }
 
 export default LoginProviders

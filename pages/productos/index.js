@@ -6,36 +6,34 @@ import Product from '../../components/Products/Product'
 import { useSelector } from 'react-redux'
 import ProductAuthValidation from '../../components/Products/ProductAuthValidation'
 
-
 export const getServerSideProps = async ({ req }) => {
-    const data = await fetch(`http://${req.headers.host}/api/products`)
-    const products = await data.json()
-    console.log(products)
-    const categoriesData = await fetch(`http://${req.headers.host}/api/categories`);
-    const categories = await categoriesData.json()
-    console.log(categories)
-  
-    return {
-      props: {
-        products,
-        categories
-      }
+  const data = await fetch(`http://${req.headers.host}/api/products`)
+  const products = await data.json()
+
+  const categoriesData = await fetch(`http://${req.headers.host}/api/categories`)
+  const categories = await categoriesData.json()
+
+  return {
+    props: {
+      products,
+      categories
     }
   }
-  
+}
+
 const ProductsPage = ({ products, categories }) => {
-  const errorMessage = useSelector(state => state.cart.errorMessage)
-  
+  const errorMessage = useSelector((state) => state.cart.errorMessage)
+  // const products = getProductBySearch(products,)
   return (
-    <ProductsPageLayout categoriesList={categories}>
-        <Products>
-        {
-          products 
-          ? products.map(product => <Product key={product.id} product={product}></Product>)
-          :  <Loader />
-        }
-        </Products>
-        {errorMessage && <ProductAuthValidation>{errorMessage}</ProductAuthValidation>}
+    <ProductsPageLayout categoriesList={categories} products={products}>
+      <Products>
+        {products ? (
+          products.map((product) => <Product key={product.id} product={product} />)
+        ) : (
+          <Loader />
+        )}
+      </Products>
+      {errorMessage && <ProductAuthValidation>{errorMessage}</ProductAuthValidation>}
     </ProductsPageLayout>
   )
 }
