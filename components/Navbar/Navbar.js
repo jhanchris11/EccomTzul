@@ -17,8 +17,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-amber-500 h-16 w-full md:flex justify-between items-center m-0 fixed z-[500] md:px-5">
-      <div className="w-36 h-16 flex justify-center items-center p-0">
-        <Image src="/logoGCN.svg" width={'100%'} height={'100%'} alt="logo" />
+      <div className="w-36 h-16 flex justify-center items-center p-0 cursor-pointer">
+        <Link href='/'>
+          <Image src="/logoGCN.svg" width={'100%'} height={'100%'} alt="logo" />
+        </Link>
       </div>
       <div className="flex gap-10">
         <ul

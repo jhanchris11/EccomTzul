@@ -7,16 +7,16 @@ import { useSelector } from 'react-redux'
 import ProductAuthValidation from '../../components/Products/ProductAuthValidation'
 
 export const getServerSideProps = async ({ req }) => {
-  const data = await fetch(`http://${req.headers.host}/api/products`)
-  const products = await data.json()
-
-  const categoriesData = await fetch(`http://${req.headers.host}/api/categories`)
-  const categories = await categoriesData.json()
-
-  return {
-    props: {
-      products,
-      categories
+    const data = await fetch(`http://${req.headers.host}/api/products`)
+    const products = await data.json()
+    const categoriesData = await fetch(`http://${req.headers.host}/api/categories`);
+    const categories = await categoriesData.json()
+  
+    return {
+      props: {
+        products,
+        categories
+      }
     }
   }
 }

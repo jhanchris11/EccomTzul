@@ -1,14 +1,13 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaTrash } from 'react-icons/fa'
 
 const RemoveIconCart = () => {
-  return (
-    <div>
-      <button>
-        <FontAwesomeIcon icon={faTrash} />
-      </button>
-    </div>
-  )
+    return (
+        <div>
+            <button>
+                <FaTrash />
+            </button>
+        </div>
+    )
 }
 
 export default RemoveIconCart
