@@ -47,7 +47,7 @@ const cartSlice = createSlice({
        addToCart: (state, action) => {
         const index = state.products.findIndex(product => product.id === action.payload.id)
         state.price += (action.payload.price * action.payload.quantity)
-        console.log(action.payload.sizes)
+        
         if (index !== -1) {
             state.products[index].quantity += action.payload.quantity
             state.products[index].price += (action.payload.price * action.payload.quantity)

@@ -54,8 +54,8 @@ const index = ({ product }) => {
         // }
         if (logged) {
             product.quantity = quantity;
-            product.sizes =  product.sizes.filter((prod) => prod.sizes === prodsize);
-            console.log(product.sizes);
+            product.sizes =  product.sizes.filter((prod) => prod === prodsize);
+            
             dispatch(addToCart(product))
             dispatch(saveCart())
         } else {
