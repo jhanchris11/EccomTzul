@@ -12,20 +12,30 @@ const ProductsPageLayout = ({ categoriesList, children }) => {
   const router = useRouter();
 
   const searchProducts = () => {
-    // console.log(searchRef.current.value);
     router.push(`/productos/${searchRef.current.value}`);
     searchRef.current.value = '';
-    // const productsList = await fetch(`http://localhost:3000/api/products/productssearch?search=${searchRef.current.value}`);
-    // const products = await productsList.json();
-    // setSearchedProducts(products);
-    // console.log(products);
+  }
+
+  const handleChangeSubmit = (e) => {
+    if (e.key === 'Enter') {
+      // const nameLowercase = searchRef.current.value?.toLowerCase()
+      // const nameValidation = products?.find((product) =>
+      //   product.name.toLowerCase().startsWith(nameLowercase)
+      // )
+      // if (nameValidation) {
+      //   router.push(`/productos/${nameValidation.name.toLowerCase()}`)
+      // }
+      // searchRef.current.value = ''
+      const nameLowercase = searchRef.current.value?.toLowerCase()
+      router.push(`/productos/${nameLowercase}`)
+    }
   }
 
   return (
     <section className='mt-24 h-auto'>
       <div className='w-full h-14 flex justify-between md:justify-end items-center px-5'>
         <div className='w-auto h-auto flex items-center gap-3'>
-          <input ref={searchRef} className='h-8 outline-none rounded-md p-2 text-center bg-slate-300 md:w-80' type='text' />
+          <input ref={searchRef} onKeyDown={handleChangeSubmit} className='h-8 outline-none rounded-md p-2 text-center bg-slate-300 md:w-80' type='text' />
           <button 
             className='h-8 w-8 box-border flex justify-center items-center rounded-md bg-amber-600'
             onClick={searchProducts}
