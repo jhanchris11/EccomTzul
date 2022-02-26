@@ -18,16 +18,9 @@ const ProductsPageLayout = ({ categoriesList, children }) => {
 
   const handleChangeSubmit = (e) => {
     if (e.key === 'Enter') {
-      // const nameLowercase = searchRef.current.value?.toLowerCase()
-      // const nameValidation = products?.find((product) =>
-      //   product.name.toLowerCase().startsWith(nameLowercase)
-      // )
-      // if (nameValidation) {
-      //   router.push(`/productos/${nameValidation.name.toLowerCase()}`)
-      // }
-      // searchRef.current.value = ''
       const nameLowercase = searchRef.current.value?.toLowerCase()
       router.push(`/productos/${nameLowercase}`)
+      searchRef.current.value = '';
     }
   }
 
